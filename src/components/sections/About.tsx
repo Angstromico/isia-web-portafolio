@@ -6,7 +6,7 @@ import { CheckCircle2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { SplitText } from '@/lib/SplitText';
+import { SplitText } from '@/components/SplitText';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -81,29 +81,22 @@ export const About = () => {
       });
 
       // Split text title animation
-      const split = SplitText.create('.about-title-split', {
-        type: 'words,lines',
-        mask: 'words',
-      });
-
-      if (split.words.length > 0) {
-        gsap.fromTo(
-          split.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.04,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.about-title-split',
-              start: 'top 90%',
-              end: 'bottom 10%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.about-title-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.04,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about-title-split-word',
+            start: 'top 90%',
+            end: 'bottom 10%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Section tag/intro elements entrance
       gsap.fromTo(
@@ -127,31 +120,21 @@ export const About = () => {
       );
 
       // Split text on paragraphs inside about-body
-      const bodyParagraphs = Array.from(container.current?.querySelectorAll('.about-body p') || []);
-      bodyParagraphs.forEach((p) => {
-        const splitP = SplitText.create(p as HTMLElement, {
-          type: 'words',
-          mask: 'words',
-        });
-
-        if (splitP.words.length > 0) {
-          gsap.fromTo(
-            splitP.words,
-            { yPercent: 110 },
-            {
-              yPercent: 0,
-              duration: 0.8,
-              stagger: 0.012,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: p,
-                start: 'top 92%',
-                toggleActions: 'play reverse play reverse',
-              },
-            }
-          );
+      gsap.fromTo(
+        '.about-p-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.8,
+          stagger: 0.012,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about-body',
+            start: 'top 92%',
+            toggleActions: 'play reverse play reverse',
+          },
         }
-      });
+      );
 
       // Animate check circles list and button (non-p elements inside about-body)
       gsap.fromTo(
@@ -199,17 +182,23 @@ export const About = () => {
               <span className="about-tag-animate text-primary font-display font-bold tracking-widest uppercase mb-4 block">
                 Sobre Mí
               </span>
-              <h2 className="about-title-split font-display text-4xl md:text-5xl font-bold text-on-surface leading-tight">
-                Profesionalismo, Juventud y Resultados Tangibles.
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-on-surface leading-tight">
+                <SplitText text="Profesionalismo, Juventud y Resultados Tangibles." spanClassName="about-title-split-word" />
               </h2>
             </div>
             
             <div className="about-body">
               <p className="font-sans text-lg text-on-surface-variant mb-6">
-                Soy Isia Villarroel, Asesora Inmobiliaria y Estratega en Ventas con formación en Publicidad y Mercadeo. Mi enfoque combina la frescura de una visión joven con la rigurosidad de una estratega, asegurando que cada inversión sea sólida y rentable para perfiles de alto nivel.
+                <SplitText
+                  text="Soy Isia Villarroel, Asesora Inmobiliaria y Estratega en Ventas con formación en Publicidad y Mercadeo. Mi enfoque combina la frescura de una visión joven con la rigurosidad de una estratega, asegurando que cada inversión sea sólida y rentable para perfiles de alto nivel."
+                  spanClassName="about-p-split-word"
+                />
               </p>
               <p className="font-sans text-lg text-on-surface-variant mb-10">
-                A mis 23 años aporto una perspectiva innovadora al mercado de Rentahouse. Mi compromiso es ayudar a cada cliente a encontrar la inversión precisa, respaldada por un análisis exhaustivo y una ética profesional inquebrantable.
+                <SplitText
+                  text="A mis 23 años aporto una perspectiva innovadora al mercado de Rentahouse. Mi compromiso es ayudar a cada cliente a encontrar la inversión precisa, respaldada por un análisis exhaustivo y una ética profesional inquebrantable."
+                  spanClassName="about-p-split-word"
+                />
               </p>
               
               <div className="flex flex-col gap-4 mb-10">

@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { SplitText } from '@/lib/SplitText';
+import { SplitText } from '@/components/SplitText';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -48,31 +48,22 @@ export const Stats = () => {
         }
       });
 
-      // Split text on stats labels
-      const labelSplits = Array.from(container.current?.querySelectorAll('.stat-item p') || []);
-      labelSplits.forEach((p) => {
-        const splitP = SplitText.create(p as HTMLElement, {
-          type: 'words',
-          mask: 'words',
-        });
-        if (splitP.words.length > 0) {
-          gsap.fromTo(
-            splitP.words,
-            { yPercent: 110 },
-            {
-              yPercent: 0,
-              duration: 0.6,
-              stagger: 0.02,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: p,
-                start: 'top 92%',
-                toggleActions: 'play reverse play reverse',
-              },
-            }
-          );
+      // Animate split text on stats labels
+      gsap.fromTo(
+        '.stat-item-p-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.6,
+          stagger: 0.02,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.stat-item',
+            start: 'top 92%',
+            toggleActions: 'play reverse play reverse',
+          },
         }
-      });
+      );
 
       // Stagger items entry
       gsap.fromTo(
@@ -110,7 +101,7 @@ export const Stats = () => {
               <span>{stat.suffix}</span>
             </div>
             <p className="font-sans text-sm font-bold uppercase text-on-surface-variant tracking-wider">
-              {stat.label}
+              <SplitText text={stat.label} spanClassName="stat-item-p-word" />
             </p>
           </div>
         ))}

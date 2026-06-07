@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { cn } from '@/lib/utils';
-import { SplitText } from '@/lib/SplitText';
+import { SplitText } from '@/components/SplitText';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -38,29 +38,22 @@ export const Projects = () => {
   useGSAP(
     () => {
       // Split text title animation
-      const split = SplitText.create('.projects-title-split', {
-        type: 'words,lines',
-        mask: 'words',
-      });
-
-      if (split.words.length > 0) {
-        gsap.fromTo(
-          split.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.04,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.projects-title-split',
-              start: 'top 90%',
-              end: 'bottom 10%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.projects-title-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.04,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.projects-title-split-word',
+            start: 'top 90%',
+            end: 'bottom 10%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Section tag/intro elements entrance
       gsap.fromTo(
@@ -84,29 +77,22 @@ export const Projects = () => {
       );
 
       // Split header description text
-      const splitDesc = SplitText.create('.projects-desc-split', {
-        type: 'words',
-        mask: 'words',
-      });
-
-      if (splitDesc.words.length > 0) {
-        gsap.fromTo(
-          splitDesc.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.012,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.projects-desc-split',
-              start: 'top 92%',
-              end: 'bottom 10%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.projects-desc-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.012,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.projects-desc-split-word',
+            start: 'top 92%',
+            end: 'bottom 10%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Cards staggered entry (repeats on scroll)
       gsap.fromTo(
@@ -150,31 +136,21 @@ export const Projects = () => {
       });
 
       // Split text on paragraphs inside project cards
-      const projectCardParagraphs = Array.from(container.current?.querySelectorAll('.project-card p') || []);
-      projectCardParagraphs.forEach((p) => {
-        const splitP = SplitText.create(p as HTMLElement, {
-          type: 'words',
-          mask: 'words',
-        });
-
-        if (splitP.words.length > 0) {
-          gsap.fromTo(
-            splitP.words,
-            { yPercent: 110 },
-            {
-              yPercent: 0,
-              duration: 0.8,
-              stagger: 0.01,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: p,
-                start: 'top 92%',
-                toggleActions: 'play reverse play reverse',
-              },
-            }
-          );
+      gsap.fromTo(
+        '.project-card-p-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.8,
+          stagger: 0.01,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.project-card',
+            start: 'top 92%',
+            toggleActions: 'play reverse play reverse',
+          },
         }
-      });
+      );
     },
     { scope: container }
   );
@@ -209,12 +185,15 @@ export const Projects = () => {
             <span className="projects-tag-animate text-primary font-display font-bold tracking-widest uppercase mb-4 block">
               Track Record
             </span>
-            <h2 className="projects-title-split font-display text-4xl md:text-5xl font-bold text-on-surface">
-              Proyectos Destacados
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-on-surface">
+              <SplitText text="Proyectos Destacados" spanClassName="projects-title-split-word" />
             </h2>
           </div>
-          <p className="projects-desc-split text-on-surface-variant max-w-md font-sans text-right hidden md:block">
-            Una selección de consultorías estratégicas y desarrollos inmobiliarios gestionados con éxito rotundo.
+          <p className="text-on-surface-variant max-w-md font-sans text-right hidden md:block">
+            <SplitText
+              text="Una selección de consultorías estratégicas y desarrollos inmobiliarios gestionados con éxito rotundo."
+              spanClassName="projects-desc-split-word"
+            />
           </p>
         </div>
 
@@ -243,13 +222,14 @@ export const Projects = () => {
                   {project.title}
                 </h3>
                 <p className="text-primary font-display font-bold text-xs mb-4 uppercase tracking-wider">
-                  {project.location}
+                  <SplitText text={project.location} spanClassName="project-card-p-word" />
                 </p>
               </div>
               
               <div className="bg-surface border-l-4 border-primary p-4 rounded-r-lg mt-4">
                 <p className="text-on-surface-variant font-sans text-sm leading-relaxed">
-                  <strong className="text-on-surface">Impacto:</strong> {project.impact}
+                  <strong className="text-on-surface">Impacto:</strong>{' '}
+                  <SplitText text={project.impact} spanClassName="project-card-p-word" />
                 </p>
               </div>
             </div>

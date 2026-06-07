@@ -79,7 +79,7 @@ export const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-on-surface/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-on-surface-variant text-sm font-sans">
+          <p className="text-on-surface-variant text-sm font-sans" suppressHydrationWarning>
             © {new Date().getFullYear()} Isia Villarroel | Rentahouse Venezuela. Todos los derechos reservados.
           </p>
           <div className="flex gap-8">

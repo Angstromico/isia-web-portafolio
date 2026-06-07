@@ -191,7 +191,7 @@ export const Navbar = () => {
           <Button size="lg" className="w-full" onClick={handleLinkClick}>
             Agendar Cita
           </Button>
-          <div className="text-center font-sans text-xs text-on-surface-variant opacity-60">
+          <div className="text-center font-sans text-xs text-on-surface-variant opacity-60" suppressHydrationWarning>
             © {new Date().getFullYear()} Isia Villarroel | Rentahouse.
           </div>
         </div>

@@ -5,7 +5,7 @@ import { Compass, BarChart3, Wallet } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { SplitText } from '@/lib/SplitText';
+import { SplitText } from '@/components/SplitText';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -35,29 +35,22 @@ export const Services = () => {
   useGSAP(
     () => {
       // Split text title animation
-      const split = SplitText.create('.services-title-split', {
-        type: 'words,lines',
-        mask: 'words',
-      });
-
-      if (split.words.length > 0) {
-        gsap.fromTo(
-          split.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.04,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.services-title-split',
-              start: 'top 90%',
-              end: 'bottom 10%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.services-title-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.04,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.services-title-split-word',
+            start: 'top 90%',
+            end: 'bottom 10%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Section tag/intro elements entrance
       gsap.fromTo(
@@ -81,31 +74,21 @@ export const Services = () => {
       );
 
       // Split text on descriptions inside service cards
-      const serviceParagraphs = Array.from(container.current?.querySelectorAll('.service-card p') || []);
-      serviceParagraphs.forEach((p) => {
-        const splitP = SplitText.create(p as HTMLElement, {
-          type: 'words',
-          mask: 'words',
-        });
-
-        if (splitP.words.length > 0) {
-          gsap.fromTo(
-            splitP.words,
-            { yPercent: 110 },
-            {
-              yPercent: 0,
-              duration: 0.8,
-              stagger: 0.01,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: p,
-                start: 'top 92%',
-                toggleActions: 'play reverse play reverse',
-              },
-            }
-          );
+      gsap.fromTo(
+        '.services-p-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.8,
+          stagger: 0.01,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.service-card',
+            start: 'top 92%',
+            toggleActions: 'play reverse play reverse',
+          },
         }
-      });
+      );
 
       // Animate entry of cards from 0 opacity and scale 0.9 to 1 (repeats on scroll)
       gsap.fromTo(
@@ -198,8 +181,8 @@ export const Services = () => {
           <span className="services-tag-animate text-primary font-display font-bold tracking-widest uppercase mb-4 block">
             Propuesta de Valor
           </span>
-          <h2 className="services-title-split font-display text-4xl md:text-5xl font-bold text-on-surface">
-            Servicios de Consultoría Élite
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-on-surface">
+            <SplitText text="Servicios de Consultoría Élite" spanClassName="services-title-split-word" />
           </h2>
         </div>
 
@@ -219,7 +202,7 @@ export const Services = () => {
                 {service.title}
               </h3>
               <p className="text-on-surface-variant font-sans leading-relaxed">
-                {service.description}
+                <SplitText text={service.description} spanClassName="services-p-split-word" />
               </p>
             </div>
           ))}

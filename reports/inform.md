@@ -18,7 +18,7 @@ Este documento detalla todas las modificaciones, optimizaciones y adiciones real
 Se rediseñó y enriqueció la experiencia UX/UI del sitio, haciéndolo totalmente responsive e interactivo con animaciones de nivel premium inspiradas en sitios modernos (Awwwards/MODUS Projects).
 
 ### Mapa de Archivos Creados y Modificados:
-* **[SplitText.ts](file:///C:/Users/Negro/Desktop/Proyects/landing-page-isia/src/lib/SplitText.ts) (Creado):** Motor de segmentación de texto ligero para efectos de revelado con máscara.
+* **[SplitText.tsx](file:///C:/Users/Negro/Desktop/Proyects/landing-page-isia/src/components/SplitText.tsx) (Creado):** Componente React de segmentación de texto nativo para efectos de revelado con máscara, evitando errores de hidratación y reconciliación de DOM.
 * **[SmoothScroll.tsx](file:///C:/Users/Negro/Desktop/Proyects/landing-page-isia/src/components/SmoothScroll.tsx) (Creado):** Inicializador de Lenis para scroll fluido.
 * **[layout.tsx](file:///C:/Users/Negro/Desktop/Proyects/landing-page-isia/src/app/layout.tsx) (Modificado):** Integración de desplazamiento global.
 * **[page.tsx](file:///C:/Users/Negro/Desktop/Proyects/landing-page-isia/src/app/page.tsx) (Modificado):** Reemplazo de componente CTA por formulario de contacto.
@@ -34,16 +34,18 @@ Se rediseñó y enriqueció la experiencia UX/UI del sitio, haciéndolo totalmen
 
 ## 3. Detalles de Implementación Técnica por Componente
 
-### A. Utilidad de Enmascarado de Texto (`SplitText.ts`)
-Debido a que el plugin original `SplitText` de GSAP es de suscripción cerrada, se desarrolló una utilidad nativa ligera compatible con TypeScript para segmentar texto en nodos de DOM.
-* **API:** `SplitText.create(selector, { type: "words,lines", mask: "words" })`
-* **Lógica:** Segmenta cadenas de texto por espacios en blanco y envuelve cada palabra en una estructura de máscara HTML:
+### A. Componente React de Enmascarado de Texto (`SplitText.tsx`)
+Debido a que el plugin `SplitText` comercial de GSAP requiere membresía de pago, se diseñó inicialmente una utilidad `SplitText.create` de manipulación de DOM directa. Sin embargo, para evitar **errores de hidratación** y problemas de reconciliación en Next.js (particularmente al re-renderizar componentes reactivos como el formulario de contacto durante la entrada de texto del usuario), esta lógica se migró por completo a un componente de React nativo (`SplitText.tsx`).
+* **Uso:** `<SplitText text="Texto a animar" spanClassName="clase-para-gsap-word" />`
+* **Lógica:** En lugar de mutar el DOM imperativamente después del renderizado mediante JavaScript en el navegador (lo cual rompe el Virtual DOM), el componente segmenta la cadena de texto por espacios en tiempo de renderizado de React. Estructura el marcado directamente con spans anidados para crear máscaras de desbordamiento:
   ```html
-  <span class="inline-block overflow-hidden vertical-align-bottom">
-    <span class="split-word inline-block">Palabra</span>
+  <span class="inline-block">
+    <span class="inline-block overflow-hidden mr-[0.22em] last:mr-0 align-bottom">
+      <span class="inline-block split-word clase-para-gsap-word">Palabra</span>
+    </span>
   </span>
   ```
-  Esto permite que GSAP anime el nodo interno (`.split-word`) usando `yPercent: 110` a `yPercent: 0`, logrando un efecto de revelado vertical sin que el texto sea visible fuera de la caja contenedora.
+  Esto permite a GSAP animar de forma segura la clase interna (`.clase-para-gsap-word`) usando `yPercent: 110` a `yPercent: 0` sin alterar la estructura del DOM de React y evitando advertencias de hidratación de Next.js.
 
 ### B. Desplazamiento Fluido Global
 * Se instaló la dependencia `lenis`.

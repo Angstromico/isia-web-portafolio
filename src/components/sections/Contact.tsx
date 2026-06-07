@@ -5,7 +5,7 @@ import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, Loader2, ArrowRight } f
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { SplitText } from '@/lib/SplitText';
+import { SplitText } from '@/components/SplitText';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -53,78 +53,57 @@ export const Contact = () => {
       });
 
       // Split text title animation
-      const split = SplitText.create('.contact-title-split', {
-        type: 'words,lines',
-        mask: 'words',
-      });
-
-      if (split.words.length > 0) {
-        gsap.fromTo(
-          split.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.04,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.contact-title-split',
-              start: 'top 90%',
-              end: 'bottom 10%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.contact-title-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.04,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.contact-header',
+            start: 'top 90%',
+            end: 'bottom 10%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Split header description text
-      const splitDesc = SplitText.create('.contact-desc-split', {
-        type: 'words',
-        mask: 'words',
-      });
-
-      if (splitDesc.words.length > 0) {
-        gsap.fromTo(
-          splitDesc.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.012,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.contact-desc-split',
-              start: 'top 92%',
-              end: 'bottom 10%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.contact-desc-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.012,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.contact-header',
+            start: 'top 92%',
+            end: 'bottom 10%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Split info card description text
-      const splitInfoDesc = SplitText.create('.contact-info-desc-split', {
-        type: 'words',
-        mask: 'words',
-      });
-
-      if (splitInfoDesc.words.length > 0) {
-        gsap.fromTo(
-          splitInfoDesc.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.8,
-            stagger: 0.01,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.contact-info-desc-split',
-              start: 'top 90%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        '.contact-info-desc-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.8,
+          stagger: 0.01,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.contact-info-card',
+            start: 'top 90%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
 
       // Section tag/intro elements entrance
       gsap.fromTo(
@@ -212,31 +191,21 @@ export const Contact = () => {
       );
 
       // Split text on paragraphs inside contact info card
-      const contactInfoParagraphs = Array.from(container.current?.querySelectorAll('.contact-info-card p') || []);
-      contactInfoParagraphs.forEach((p) => {
-        const splitP = SplitText.create(p as HTMLElement, {
-          type: 'words',
-          mask: 'words',
-        });
-
-        if (splitP.words.length > 0) {
-          gsap.fromTo(
-            splitP.words,
-            { yPercent: 110 },
-            {
-              yPercent: 0,
-              duration: 0.8,
-              stagger: 0.01,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: p,
-                start: 'top 92%',
-                toggleActions: 'play reverse play reverse',
-              },
-            }
-          );
+      gsap.fromTo(
+        '.contact-info-p-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.8,
+          stagger: 0.01,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.contact-info-card',
+            start: 'top 92%',
+            toggleActions: 'play reverse play reverse',
+          },
         }
-      });
+      );
     },
     { scope: container }
   );
@@ -414,11 +383,11 @@ export const Contact = () => {
           <span className="contact-tag-animate text-primary font-display font-bold tracking-widest uppercase mb-4 block">
             Contacto de Élite
           </span>
-          <h2 className="contact-title-split font-display text-4xl md:text-5xl font-bold mb-6 text-on-surface">
-            Hablemos de su próxima inversión
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-on-surface">
+            <SplitText text="Hablemos de su próxima inversión" spanClassName="contact-title-split-word" />
           </h2>
-          <p className="contact-desc-split font-sans text-lg text-on-surface-variant">
-            Permítame asesorarle con el enfoque estratégico y profesional que sus metas financieras exigen. Agende una consulta privada o envíe un mensaje.
+          <p className="font-sans text-lg text-on-surface-variant">
+            <SplitText text="Permítame asesorarle con el enfoque estratégico y profesional que sus metas financieras exigen. Agende una consulta privada o envíe un mensaje." spanClassName="contact-desc-split-word" />
           </p>
         </div>
 
@@ -430,8 +399,8 @@ export const Contact = () => {
               <h3 className="font-display text-2xl font-bold mb-6 text-on-surface">
                 Información de Contacto
               </h3>
-              <p className="contact-info-desc-split font-sans text-on-surface-variant mb-10 leading-relaxed">
-                Cada transacción de lujo requiere absoluta discreción y análisis técnico. Contácteme directamente a través de los siguientes canales oficiales.
+              <p className="font-sans text-on-surface-variant mb-10 leading-relaxed">
+                <SplitText text="Cada transacción de lujo requiere absoluta discreción y análisis técnico. Contácteme directamente a través de los siguientes canales oficiales." spanClassName="contact-info-desc-split-word" />
               </p>
 
               {/* Items */}
@@ -481,7 +450,7 @@ export const Contact = () => {
                       Oficina Principal
                     </h4>
                     <p className="font-sans text-base font-bold text-on-surface">
-                      Chuao, Caracas, Venezuela
+                      <SplitText text="Chuao, Caracas, Venezuela" spanClassName="contact-info-p-word" />
                     </p>
                   </div>
                 </div>
@@ -495,7 +464,7 @@ export const Contact = () => {
                       Horario de Atención
                     </h4>
                     <p className="font-sans text-base font-bold text-on-surface">
-                      Lunes a Viernes: 8:00 AM – 6:00 PM
+                      <SplitText text="Lunes a Viernes: 8:00 AM – 6:00 PM" spanClassName="contact-info-p-word" />
                     </p>
                   </div>
                 </div>
@@ -507,7 +476,7 @@ export const Contact = () => {
                 Afiliada a Rentahouse Venezuela
               </span>
               <p className="font-sans text-xs text-[#5d3f3c] opacity-80 leading-relaxed">
-                Garantizamos máxima seguridad jurídica en sus operaciones de compra, venta y alquiler de bienes raíces residenciales y comerciales.
+                <SplitText text="Garantizamos máxima seguridad jurídica en sus operaciones de compra, venta y alquiler de bienes raíces residenciales y comerciales." spanClassName="contact-info-p-word" />
               </p>
             </div>
           </div>

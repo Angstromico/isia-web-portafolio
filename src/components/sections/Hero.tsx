@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Button } from '../Button';
-import { SplitText } from '@/lib/SplitText';
+import { SplitText } from '@/components/SplitText';
 
 export const Hero = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -37,24 +37,17 @@ export const Hero = () => {
       );
 
       // Split paragraph animation
-      const splitP = SplitText.create('.hero-p-split', {
-        type: 'words',
-        mask: 'words',
-      });
-
-      if (splitP.words.length > 0) {
-        tl.fromTo(
-          splitP.words,
-          { yPercent: 110 },
-          {
-            yPercent: 0,
-            duration: 0.85,
-            stagger: 0.015,
-            ease: 'power3.out',
-          },
-          '-=1.2'
-        );
-      }
+      tl.fromTo(
+        '.hero-p-split-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.015,
+          ease: 'power3.out',
+        },
+        '-=1.2'
+      );
 
       // Fade-in other elements (tags, buttons)
       tl.from(
@@ -190,8 +183,11 @@ export const Hero = () => {
               <span className="hero-title-line inline-block transform">Inmobiliarias de Élite</span>
             </span>
           </h1>
-          <p className="hero-p-split font-sans text-lg md:text-xl mb-10 opacity-90 max-w-lg">
-            Transformando el sector inmobiliario en Venezuela con visión vanguardista, transparencia and resultados de alto impacto para inversores exigentes.
+          <p className="font-sans text-lg md:text-xl mb-10 opacity-90 max-w-lg">
+            <SplitText
+              text="Transformando el sector inmobiliario en Venezuela con visión vanguardista, transparencia y resultados de alto impacto para inversores exigentes."
+              spanClassName="hero-p-split-word"
+            />
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg">VER PORTAFOLIO</Button>
