@@ -49,16 +49,20 @@ El sitio web está potenciado por **GSAP (GreenSock Animation Platform)** y **Le
 ## 🚀 Inicio Rápido (Desarrollo)
 
 ### Requisitos Previos
-* Node.js v18 o superior instalado en el sistema.
+* Node.js v18 o superior o **Bun** instalado en el sistema.
 
 ### 1. Clonar e Instalar dependencias
 ```bash
 npm install
+# o
+bun install
 ```
 
 ### 2. Ejecutar el servidor de desarrollo
 ```bash
 npm run dev
+# o
+bun dev
 ```
 Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación ejecutándose en tiempo real con recarga en caliente (hot reload).
 
@@ -66,6 +70,8 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la 
 Para validar la optimización y consistencia de tipos de TypeScript de Next.js:
 ```bash
 npm run build
+# o
+bun run build
 ```
 La compilación generará un bundle optimizado y estático dentro del directorio `.next`.
 
