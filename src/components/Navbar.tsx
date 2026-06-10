@@ -97,25 +97,25 @@ export const Navbar = () => {
       )}
     >
       <div className="max-w-container-max mx-auto px-gutter flex justify-between items-center relative z-50">
-        <Link href="/" className="font-display text-xl md:text-2xl font-bold flex items-center z-50">
+        <Link href="/" className="font-display text-lg sm:text-xl lg:text-2xl font-bold flex items-center z-50 whitespace-nowrap">
           <span className={cn(
             'transition-colors duration-300',
             isOpen ? 'text-on-surface' : (isScrolled ? 'text-on-surface' : 'text-white')
           )}>
             Isia Villarroel
           </span>
-          <span className="mx-2 text-primary">|</span>
+          <span className="mx-1 sm:mx-2 text-primary">|</span>
           <span className="text-primary">Rentahouse</span>
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex gap-8 items-center">
+        <div className="hidden lg:flex gap-6 xl:gap-8 items-center">
           {navLinks.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               className={cn(
-                'font-sans text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors',
+                'font-sans text-xs xl:text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors',
                 isScrolled ? 'text-on-surface' : 'text-white'
               )}
             >
@@ -132,7 +132,7 @@ export const Navbar = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 z-50 md:hidden focus:outline-none cursor-pointer"
+            className="relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 z-50 lg:hidden focus:outline-none cursor-pointer"
             aria-label="Toggle Menu"
           >
             <span

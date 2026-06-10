@@ -164,8 +164,8 @@ export const About = () => {
   return (
     <section id="about" ref={container} className="py-section-gap bg-surface overflow-hidden">
       <div className="max-w-container-max mx-auto px-gutter">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="about-image relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="about-image relative max-w-2xl mx-auto lg:max-w-none">
             <div className="aspect-[4/5] bg-surface-container-high rounded-lg overflow-hidden shadow-2xl relative z-10">
               <img
                 className="about-img-parallax w-full h-full object-cover transform origin-center"
@@ -177,12 +177,12 @@ export const About = () => {
             <div className="about-decor-2 absolute -top-6 -left-6 w-24 h-24 border-t-4 border-l-4 border-primary/30 -z-0"></div>
           </div>
 
-          <div className="about-content">
+          <div className="about-content mt-12 lg:mt-0">
             <div className="section-header-animate mb-8">
               <span className="about-tag-animate text-primary font-display font-bold tracking-widest uppercase mb-4 block">
                 Sobre Mí
               </span>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-on-surface leading-tight">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-on-surface leading-tight break-words">
                 <SplitText text="Profesionalismo, Juventud y Resultados Tangibles." spanClassName="about-title-split-word" />
               </h2>
             </div>
