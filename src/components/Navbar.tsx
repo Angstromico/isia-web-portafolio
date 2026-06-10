@@ -90,9 +90,9 @@ export const Navbar = () => {
     <nav
       ref={container}
       className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b',
+        'fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out border-b',
         isScrolled
-          ? 'bg-white/90 backdrop-blur-md py-3 border-on-surface/10 shadow-sm'
+          ? 'bg-white/95 backdrop-blur-md py-3 border-on-surface/10 shadow-sm'
           : 'bg-transparent py-5 border-transparent'
       )}
     >
@@ -100,7 +100,7 @@ export const Navbar = () => {
         <Link href="/" className="font-display text-xl md:text-2xl font-bold flex items-center z-50">
           <span className={cn(
             'transition-colors duration-300',
-            isOpen ? 'text-on-surface' : (isScrolled ? 'text-on-surface' : 'text-white md:text-on-surface')
+            isOpen ? 'text-on-surface' : (isScrolled ? 'text-on-surface' : 'text-white')
           )}>
             Isia Villarroel
           </span>
@@ -116,7 +116,7 @@ export const Navbar = () => {
               href={item.href}
               className={cn(
                 'font-sans text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors',
-                isScrolled ? 'text-on-surface' : 'text-white md:text-on-surface'
+                isScrolled ? 'text-on-surface' : 'text-white'
               )}
             >
               {item.label}
@@ -138,19 +138,19 @@ export const Navbar = () => {
             <span
               className={cn(
                 'w-6 h-0.5 transition-all duration-300 transform rounded-full',
-                isOpen ? 'bg-on-surface rotate-45 translate-y-2' : (isScrolled ? 'bg-on-surface' : 'bg-white md:bg-on-surface')
+                isOpen ? 'bg-on-surface rotate-45 translate-y-2' : (isScrolled ? 'bg-on-surface' : 'bg-white')
               )}
             />
             <span
               className={cn(
                 'w-6 h-0.5 transition-all duration-300 rounded-full',
-                isOpen ? 'opacity-0' : (isScrolled ? 'bg-on-surface' : 'bg-white md:bg-on-surface')
+                isOpen ? 'opacity-0' : (isScrolled ? 'bg-on-surface' : 'bg-white')
               )}
             />
             <span
               className={cn(
                 'w-6 h-0.5 transition-all duration-300 transform rounded-full',
-                isOpen ? 'bg-on-surface -rotate-45 -translate-y-2' : (isScrolled ? 'bg-on-surface' : 'bg-white md:bg-on-surface')
+                isOpen ? 'bg-on-surface -rotate-45 -translate-y-2' : (isScrolled ? 'bg-on-surface' : 'bg-white')
               )}
             />
           </button>

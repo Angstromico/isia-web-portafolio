@@ -164,7 +164,10 @@ export const Hero = () => {
           src="/isia1.jpg"
           alt="Isia Villarroel Professional Real Estate"
         />
+        {/* Left-to-right gradient for content contrast */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-transparent"></div>
+        {/* Top-to-bottom scrim for navbar contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent h-1/3"></div>
       </div>
       
       <div className="relative z-20 max-w-container-max mx-auto px-gutter w-full">
